@@ -1,0 +1,34 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #0e0a08;
+  font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+}
+
+canvas { display: block; }
+
+/* BPM 슬라이더 + 드럼 버튼 (p5 createDiv로 만든 것) */
+.controls {
+  position: fixed;
+  top: 32px;
+  right: 32px;
+  align-items: center;
+  gap: 12px;
+  color: #a8998a;
+  font-size: 14px;
+}
+
+.controls input { accent-color: #e8b04a; width: 120px; }
+.controls .bpm-val { color: #f3e9dc; min-width: 2.5em; }
+
+.controls button {
+  font: inherit;
+  color: #f3e9dc;
+  background: transparent;
+  border: 1px solid #e8b04a;
+  border-radius: 999px;
+  padding: 8px 18px;
+  cursor: pointer;
+}
+.controls button:hover { background: rgba(232, 176, 74, 0.15); }
