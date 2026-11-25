@@ -306,7 +306,7 @@ function drawCurtain() {
   textStyle(NORMAL);
   textSize(20);
   fill(243, 233, 220, a);
-  text("재즈 연주, 해보실래요?", width / 2, cy + 30);
+  text("재즈 연주 맛볼래?", width / 2, cy + 30);
 
   textSize(16);
   if (scene === "opening") {
