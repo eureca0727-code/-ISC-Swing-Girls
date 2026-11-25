@@ -8,14 +8,14 @@ html, body {
 
 canvas { display: block; }
 
-/* BPM 슬라이더 + 드럼 버튼 (p5 createDiv로 만든 것) */
+/* BPM 슬라이더 + 버튼들 (p5 createDiv로 만든 것). 위쪽·오른쪽 무대 커튼 안쪽에 둠 */
 .controls {
   position: fixed;
-  top: 32px;
-  right: 32px;
+  top: 64px;
+  right: calc(max(28px, 7vw) + 24px);
   align-items: center;
   gap: 12px;
-  color: #a8998a;
+  color: #d8c2a8;
   font-size: 14px;
 }
 

@@ -67,13 +67,6 @@ const MELODY_KEYS = [
   { code: "KeyP", jamo: "ㅔ", note: "A6" },
 ];
 
-// 화면에 그릴 실제 키보드 배열 (줄마다 오른쪽으로 밀리는 정도 = 키 너비 비율)
-const KEYBOARD_ROWS = [
-  { offset: 0,    codes: ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP"] },
-  { offset: 0.3,  codes: ["KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL"] },
-  { offset: 0.8,  codes: ["KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM"] },
-];
-
 const SOLFEGE = { C: "도", D: "레", E: "미", F: "파", G: "솔", A: "라", B: "시" };
 
 // 샘플은 단3도 간격(C, D#, F#, A)으로만 있고, 사이 음은 Tone.Sampler가 자동으로 음높이를 바꿔 채움

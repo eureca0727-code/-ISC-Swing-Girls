@@ -178,7 +178,7 @@ function makeBass(out) {
 }
 
 // ---------- 밴드 전체 ----------
-// on.beat(박, 지금 코드, 다음 코드), on.fill() : 화면 갱신용 콜백
+// on.beat(박, 지금 코드, 다음 코드), on.fill(), on.bass() : 화면 갱신용 콜백
 function makeBand(bandOut, on) {
   const drums = makeDrums(bandOut);
   const walk = makeBass(bandOut);
@@ -210,6 +210,7 @@ function makeBand(bandOut, on) {
     if (step % 2 === 0) {
       const beatIdx = Math.round(Tone.Transport.getTicksAtTime(time) / Tone.Transport.PPQ);
       walk(time, beatIdx);
+      if (on.bass) Tone.Draw.schedule(() => on.bass(), time); // 베이스 그림이 음에 맞춰 튐
       const chord = Band.chordAt(beatIdx);
       const next = Band.chordAt(beatIdx + 4 - (beatIdx % 4));
       Tone.Draw.schedule(() => on.beat(step / 2, chord, next), time); // 화면 표시를 소리와 맞춤

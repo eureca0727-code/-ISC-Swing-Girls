@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="300" viewBox="0 0 420 300">
+  <!-- 종이 오린 느낌: 모양 바깥에 미색 종이 테두리를 둘러줌 -->
+  <defs>
+    <filter id="paper" x="-8%" y="-8%" width="116%" height="116%">
+      <feMorphology in="SourceAlpha" operator="dilate" radius="6" result="grow"/>
+      <feFlood flood-color="#fbf3e4"/>
+      <feComposite in2="grow" operator="in" result="border"/>
+      <feMerge>
+        <feMergeNode in="border"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#paper)">
+    <!-- 뚜껑 받침대 -->
+    <rect x="262" y="76" width="6" height="68" fill="#c9962f" transform="rotate(14 265 142)"/>
+    <!-- 열린 뚜껑 -->
+    <path d="M78 140 L336 42 L356 56 L104 146 Z" fill="#2b2a30"/>
+    <path d="M96 138 L330 52" stroke="#45444c" stroke-width="4"/>
+    <!-- 몸통 -->
+    <path d="M40 140 L300 140 C352 140 380 156 380 178 L380 202 L40 202 Z" fill="#17161a"/>
+    <path d="M40 147 L300 147 C346 147 372 161 374 177" fill="none" stroke="#d9a441" stroke-width="4"/>
+    <path d="M40 190 L378 190" stroke="#2e2d33" stroke-width="3"/>
+    <!-- 건반 받침 + 건반 -->
+    <rect x="16" y="122" width="106" height="28" fill="#17161a"/>
+    <rect x="24" y="127" width="90" height="13" fill="#f6efe2"/>
+    <g fill="#17161a">
+      <rect x="30" y="127" width="5" height="8"/>
+      <rect x="38" y="127" width="5" height="8"/>
+      <rect x="51" y="127" width="5" height="8"/>
+      <rect x="59" y="127" width="5" height="8"/>
+      <rect x="67" y="127" width="5" height="8"/>
+      <rect x="80" y="127" width="5" height="8"/>
+      <rect x="88" y="127" width="5" height="8"/>
+      <rect x="101" y="127" width="5" height="8"/>
+      <rect x="109" y="127" width="4" height="8"/>
+    </g>
+    <!-- 보면대 -->
+    <path d="M60 122 L66 92 L112 92 L118 122 Z" fill="#26252b"/>
+    <!-- 다리 -->
+    <g fill="#17161a">
+      <path d="M54 202 L78 202 L73 264 L59 264 Z"/>
+      <path d="M326 202 L350 202 L345 264 L331 264 Z"/>
+    </g>
+    <g fill="#d9a441">
+      <circle cx="66" cy="268" r="6"/>
+      <circle cx="338" cy="268" r="6"/>
+    </g>
+    <!-- 페달 -->
+    <rect x="178" y="202" width="12" height="46" fill="#17161a"/>
+    <rect x="162" y="246" width="44" height="9" rx="2" fill="#17161a"/>
+    <g fill="#d9a441">
+      <rect x="167" y="251" width="8" height="4"/>
+      <rect x="180" y="251" width="8" height="4"/>
+      <rect x="193" y="251" width="8" height="4"/>
+    </g>
+  </g>
+</svg>

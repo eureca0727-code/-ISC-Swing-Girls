@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="460" viewBox="0 0 240 460">
+  <!-- 종이 오린 느낌: 모양 바깥에 미색 종이 테두리를 둘러줌 -->
+  <defs>
+    <filter id="paper" x="-10%" y="-6%" width="120%" height="112%">
+      <feMorphology in="SourceAlpha" operator="dilate" radius="6" result="grow"/>
+      <feFlood flood-color="#fbf3e4"/>
+      <feComposite in2="grow" operator="in" result="border"/>
+      <feMerge>
+        <feMergeNode in="border"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#paper)">
+    <!-- 엔드핀 -->
+    <rect x="116" y="410" width="8" height="34" fill="#3a3a40"/>
+    <!-- 목 -->
+    <rect x="110" y="40" width="20" height="150" fill="#6b3a1c"/>
+    <!-- 줄감개 + 스크롤 -->
+    <path d="M106 72 L134 72 L134 28 L106 28 Z" fill="#6b3a1c"/>
+    <circle cx="120" cy="22" r="14" fill="#6b3a1c"/>
+    <circle cx="120" cy="22" r="6" fill="#4a2410"/>
+    <g fill="#d9b27a">
+      <rect x="92" y="38" width="14" height="7" rx="2"/>
+      <rect x="92" y="56" width="14" height="7" rx="2"/>
+      <rect x="134" y="38" width="14" height="7" rx="2"/>
+      <rect x="134" y="56" width="14" height="7" rx="2"/>
+    </g>
+    <!-- 몸통 -->
+    <path d="M120 150 C162 150 186 172 184 208 C182 240 162 250 162 266 C162 280 206 294 206 344
+             C206 398 164 420 120 420 C76 420 34 398 34 344 C34 294 78 280 78 266
+             C78 250 58 240 56 208 C54 172 78 150 120 150 Z" fill="#9a5426"/>
+    <path d="M120 150 C162 150 186 172 184 208 C182 240 162 250 162 266 C162 280 206 294 206 344
+             C206 398 164 420 120 420 C76 420 34 398 34 344 C34 294 78 280 78 266
+             C78 250 58 240 56 208 C54 172 78 150 120 150 Z" fill="none" stroke="#5e2f14" stroke-width="7"/>
+    <path d="M70 320 C70 300 92 288 104 284" fill="none" stroke="#b86a35" stroke-width="6" stroke-linecap="round"/>
+    <!-- 지판 -->
+    <path d="M112 40 L128 40 L133 330 L107 330 Z" fill="#1a1210"/>
+    <!-- f홀 -->
+    <path d="M84 290 C76 305 92 318 84 336" fill="none" stroke="#1a1210" stroke-width="5" stroke-linecap="round"/>
+    <path d="M156 290 C148 305 164 318 156 336" fill="none" stroke="#1a1210" stroke-width="5" stroke-linecap="round"/>
+    <!-- 브리지 -->
+    <path d="M96 354 L144 354 L138 336 L102 336 Z" fill="#e9c58f"/>
+    <!-- 테일피스 -->
+    <path d="M110 362 L130 362 L137 408 L103 408 Z" fill="#1a1210"/>
+    <!-- 줄 -->
+    <g stroke="#f3e9dc" stroke-width="1.3">
+      <line x1="114" y1="44" x2="110" y2="364"/>
+      <line x1="118" y1="44" x2="117" y2="364"/>
+      <line x1="122" y1="44" x2="123" y2="364"/>
+      <line x1="126" y1="44" x2="130" y2="364"/>
+    </g>
+  </g>
+</svg>
