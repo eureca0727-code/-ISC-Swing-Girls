@@ -96,8 +96,8 @@ function layout() {
 function drawBackground() {
   const ctx = drawingContext;
   const g = ctx.createRadialGradient(width / 2, -height * 0.1, 0, width / 2, -height * 0.1, max(width, height) * 0.9);
-  g.addColorStop(0, "#3d2815");
-  g.addColorStop(0.65, "#0e0a08");
+  g.addColorStop(0, "#63300f");
+  g.addColorStop(0.65, "#170b06");
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, width, height);
 }
