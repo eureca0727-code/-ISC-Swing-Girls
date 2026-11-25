@@ -174,11 +174,13 @@ function makeBass(out) {
 
     const vel = (idx === 0 ? 0.9 : 0.72) + Math.random() * 0.08;
     bass.triggerAttackRelease(Tone.Frequency(midi, "midi").toNote(), Tone.Time("4n").toSeconds() * 0.92, time, vel);
+    return midi;
   };
 }
 
 // ---------- 밴드 전체 ----------
-// on.beat(박, 지금 코드, 다음 코드), on.fill(), on.bass() : 화면 갱신용 콜백
+// 화면 갱신용 콜백 (모두 소리가 나는 순간에 호출됨)
+//   on.beat(박, 지금 코드, 다음 코드), on.fill(박 위치), on.hat(박 위치), on.bass(midi, 박)
 function makeBand(bandOut, on) {
   const drums = makeDrums(bandOut);
   const walk = makeBass(bandOut);
@@ -191,10 +193,15 @@ function makeBand(bandOut, on) {
     Band.activity = Math.min(1, Band.countBetween(time - beatDur * 2, time + 0.2) / 5);
     bandOut.gain.rampTo(1 - 0.45 * Band.activity, 0.3, time);
 
+    const pos = Tone.Transport.getTicksAtTime(time) / Tone.Transport.PPQ; // 몇 번째 박인지 (소수)
+
     // 대답하기: 3박째에 판단해서 3·4박을 필인으로
     if (step === 4 && Band.shouldFill(time)) {
       filling = true;
-      Tone.Draw.schedule(() => on.fill(), time);
+      Tone.Draw.schedule(() => on.fill(pos), time);
+    }
+    if ((step === 2 || step === 6) && !filling && on.hat) {
+      Tone.Draw.schedule(() => on.hat(pos), time); // 2·4박 하이햇
     }
     if (filling && step >= 4) {
       drums.fill(time, step);
@@ -209,8 +216,8 @@ function makeBand(bandOut, on) {
 
     if (step % 2 === 0) {
       const beatIdx = Math.round(Tone.Transport.getTicksAtTime(time) / Tone.Transport.PPQ);
-      walk(time, beatIdx);
-      if (on.bass) Tone.Draw.schedule(() => on.bass(), time); // 베이스 그림이 음에 맞춰 튐
+      const bassMidi = walk(time, beatIdx);
+      if (on.bass) Tone.Draw.schedule(() => on.bass(bassMidi, beatIdx), time); // 화면이 베이스 음에 맞춰 반응
       const chord = Band.chordAt(beatIdx);
       const next = Band.chordAt(beatIdx + 4 - (beatIdx % 4));
       Tone.Draw.schedule(() => on.beat(step / 2, chord, next), time); // 화면 표시를 소리와 맞춤
