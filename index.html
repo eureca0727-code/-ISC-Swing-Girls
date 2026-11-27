@@ -2,10 +2,59 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Swing Girls &amp; Boys</title>
-  <meta http-equiv="refresh" content="0; url=demo/">
+  <style>
+    :root { --bg: #170b06; --ink: #f3e9dc; --muted: #c9b39a; --gold: #e8b04a; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(ellipse at 50% 20%, #63300f, var(--bg) 70%);
+      color: var(--ink);
+      font-family: "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+      padding: 24px 16px;
+    }
+    main { max-width: 760px; width: 100%; text-align: center; }
+    h1 { font-family: Georgia, serif; font-style: italic; color: var(--gold); font-size: clamp(36px, 7vw, 64px); margin: 0 0 8px; }
+    p { color: var(--muted); margin: 0 0 36px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    a.card {
+      display: block;
+      padding: 24px;
+      border-radius: 14px;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid rgba(232, 176, 74, 0.4);
+      background: rgba(0, 0, 0, 0.25);
+      text-align: left;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+    a.card:hover { transform: translateY(-3px); border-color: var(--gold); }
+    a.card b { display: block; font-size: 20px; margin-bottom: 6px; }
+    a.card span { color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .poster { background: linear-gradient(#2459bd, #a9c9ec); color: #111214; border-color: transparent; }
+    .poster span { color: #111214; }
+    small { display: block; margin-top: 28px; color: var(--muted); }
+  </style>
 </head>
 <body>
-  <a href="demo/">데모로 이동</a>
+  <main>
+    <h1>Swing Girls &amp; Boys</h1>
+    <p>키보드로 하는 재즈 잼 — 두 가지 화면 버전</p>
+    <div class="cards">
+      <a class="card" href="demo/">
+        <b>종이 무대</b>
+        <span>종이로 오린 피아노·트럼펫·베이스가 박자에 맞춰 흔들리는 무대</span>
+      </a>
+      <a class="card poster" href="poster/">
+        <b>포스터</b>
+        <span>치는 음마다 기하 도형이 생겨 8마디마다 포스터 한 장이 완성</span>
+      </a>
+    </div>
+    <small>크롬 권장 · 자음 = 코드, 모음 = 멜로디 · 첫 화면에서 클릭하면 소리가 납니다</small>
+  </main>
 </body>
 </html>

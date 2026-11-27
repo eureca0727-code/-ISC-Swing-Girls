@@ -1,0 +1,35 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #2459bd;
+  font-family: "Helvetica Neue", Helvetica, "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+}
+
+canvas { display: block; }
+
+/* BPM 슬라이더 + 버튼들 (p5 createDiv로 만든 것) — 포스터 위쪽 오른편 */
+.controls {
+  position: fixed;
+  top: 22px;
+  right: max(24px, 4vw);
+  align-items: center;
+  gap: 12px;
+  color: #111214;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.controls input { accent-color: #111214; width: 110px; }
+.controls .bpm-val { min-width: 2.5em; }
+
+.controls button {
+  font: inherit;
+  color: #111214;
+  background: transparent;
+  border: 1.5px solid #111214;
+  border-radius: 0;
+  padding: 7px 14px;
+  cursor: pointer;
+}
+.controls button:hover { background: #f2cf3a; }
