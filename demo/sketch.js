@@ -408,20 +408,13 @@ async function startShow() {
 
   await Tone.start(); // 브라우저는 클릭/키 입력이 있어야 소리를 낼 수 있음
   const audio = setupAudio();
+  // 반주(드럼·베이스)는 도형을 그리지 않음 → 포스터에는 참여자가 친 음만 남음
   const band = makeBand(audio.bandOut, {
     beat(b, chord, next) {
       currentChord = chord.name;
       nextChord = next.name;
     },
-    fill(pos) {
-      elements.push({ type: "fill", beat: pos, y: gy(0.8), born: millis() });
-    },
-    hat(pos) {
-      elements.push({ type: "hat", beat: pos, y: gy(0.96), born: millis() });
-    },
-    bass(midi, beatIdx) {
-      elements.push({ type: "bass", beat: beatIdx, y: gy(map(midi, 31, 52, 0.92, 0.84)), born: millis() });
-    },
+    fill() {},
   });
 
   const source = await Piano.load(audio.pianoOut);
