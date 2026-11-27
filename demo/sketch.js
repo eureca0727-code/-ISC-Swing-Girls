@@ -166,43 +166,15 @@ function addChord(chord, register, strong, beat) {
 }
 
 // ================= 도형 그리기 =================
+// 그리는 순서 = 겹치는 순서. 코드(자음) 층을 먼저 다 그리고, 멜로디(모음) 층을 항상 그 위에 그림
 function drawElements() {
-  const nb = nowBeat();
+  const chords = elements.filter((e) => e.type === "shape");
+  const melody = elements.filter((e) => e.type === "dot");
+
+  // ---- 아래층: 코드 ----
   noStroke();
-
-  // 1) 사선 막대 (맨 뒤). 기본 길이가 있고, 길게 누를수록 늘어남. 세게 치면 포스터를 가로지르는 긴 사선
-  const beatW = (L.x1 - L.x0) / POSTER_BEATS;
-  for (const e of elements) {
-    if (e.holdStart == null || (e.type !== "dot" && e.type !== "shape")) continue;
-    const end = e.holdEnd ?? nb;
-    let len = max(xAt(end) - xAt(e.holdStart), (e.type === "dot" ? 0.7 : 1.2) * beatW);
-    if (e.strong) len = max(len, 4 * beatW);
-    push();
-    translate(xAt(e.beat), e.y);
-    rotate(e.angle);
-    fill(e.type === "dot" ? COL.yellow : COL.white);
-    const h = (e.type === "dot" ? (e.strong ? 15 : 10) : e.strong ? 12 : 8) * S;
-    rect(-h, -h / 2, len * min(1, popScale(e.born) + 0.2), h);
-    pop();
-  }
-
-  // 2) 멜로디를 잇는 선, 음표 기둥
-  stroke(COL.black);
-  strokeWeight(1.5 * S);
-  for (const e of elements) {
-    if (e.type !== "dot") continue;
-    const x = xAt(e.beat);
-    if (e.prev) line(xAt(e.prev.beat), e.prev.y, x, e.y);
-    if (e.stem) {
-      line(x + e.r * 0.9, e.y, x + e.r * 0.9, e.y - 34 * S);
-      line(x + e.r * 0.9, e.y - 34 * S, x + e.r * 0.9 + 10 * S, e.y - 26 * S);
-    }
-  }
-  noStroke();
-
-  // 3) 코드 도형
-  for (const e of elements) {
-    if (e.type !== "shape") continue;
+  for (const e of chords) drawBar(e);
+  for (const e of chords) {
     const s = e.size * popScale(e.born);
     push();
     translate(xAt(e.beat), e.y);
@@ -215,33 +187,48 @@ function drawElements() {
     pop();
   }
 
-  // 4) 멜로디 점, 베이스 점, 하이햇, 필인
-  for (const e of elements) {
+  // ---- 위층: 멜로디 ----
+  for (const e of melody) drawBar(e);
+  // 멜로디를 잇는 선, 음표 기둥
+  stroke(COL.black);
+  strokeWeight(1.5 * S);
+  for (const e of melody) {
     const x = xAt(e.beat);
-    const p = popScale(e.born);
-    if (e.type === "dot") {
-      if (e.strong) {
-        fill(COL.yellow);
-        circle(x, e.y, e.r * 2 * p + 8 * S);
-      }
-      fill(COL.black);
-      circle(x, e.y, e.r * 2 * p);
-    } else if (e.type === "bass") {
-      fill(COL.black);
-      circle(x, e.y, 7 * S * p);
-    } else if (e.type === "hat") {
-      fill(COL.white);
-      rect(x - 3 * S, e.y - 3 * S, 6 * S * p, 6 * S * p);
-    } else if (e.type === "fill") {
-      stroke(COL.black);
-      strokeWeight(3 * S);
-      for (let k = 0; k < 4; k++) {
-        const xx = x + k * 9 * S;
-        line(xx, e.y + 10 * S, xx + 14 * S * p, e.y - 10 * S);
-      }
-      noStroke();
+    if (e.prev) line(xAt(e.prev.beat), e.prev.y, x, e.y);
+    if (e.stem) {
+      line(x + e.r * 0.9, e.y, x + e.r * 0.9, e.y - 34 * S);
+      line(x + e.r * 0.9, e.y - 34 * S, x + e.r * 0.9 + 10 * S, e.y - 26 * S);
     }
   }
+  noStroke();
+  // 멜로디 점
+  for (const e of melody) {
+    const x = xAt(e.beat);
+    const p = popScale(e.born);
+    if (e.strong) {
+      fill(COL.yellow);
+      circle(x, e.y, e.r * 2 * p + 8 * S);
+    }
+    fill(COL.black);
+    circle(x, e.y, e.r * 2 * p);
+  }
+}
+
+// 사선 막대: 기본 길이가 있고, 길게 누를수록 늘어남. 세게 치면 포스터를 가로지르는 긴 사선
+// 멜로디는 노랑, 코드는 흰색
+function drawBar(e) {
+  const beatW = (L.x1 - L.x0) / POSTER_BEATS;
+  const isMelody = e.type === "dot";
+  const end = e.holdEnd ?? nowBeat();
+  let len = max(xAt(end) - xAt(e.holdStart), (isMelody ? 0.7 : 1.2) * beatW);
+  if (e.strong) len = max(len, 4 * beatW);
+  const h = (isMelody ? (e.strong ? 15 : 10) : e.strong ? 12 : 8) * S;
+  push();
+  translate(xAt(e.beat), e.y);
+  rotate(e.angle);
+  fill(isMelody ? COL.yellow : COL.white);
+  rect(-h, -h / 2, len * min(1, popScale(e.born) + 0.2), h);
+  pop();
 }
 
 function drawPlayhead() {
